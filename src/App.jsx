@@ -4,11 +4,13 @@ import "./App.css";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
-import { addContact, deleteContact } from "./redux/contactsSlice";
+import { addContact, deleteContact } from "./redux/contactsOps";
 import { selectNameFilter } from "./redux/filtersSlice"; 
+
 
 function App() {
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.contacts.contacts)
   const contacts = useSelector((state) => state.contacts.contacts.items || []);
   const filter = useSelector(selectNameFilter); 
   const handleAddContact = (newContact) => {
@@ -29,6 +31,7 @@ function App() {
       <h1>Phonebook</h1>
       <ContactForm onAdd={handleAddContact} />
       <SearchBox /> 
+      {loading&&<h2>Loading.....</h2>}
       <ContactList users={filteredContacts} onDelete={handleDeleteContact} /> 
     </div>
   );
