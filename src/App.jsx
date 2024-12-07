@@ -6,10 +6,16 @@ import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
 import { addContact, deleteContact } from "./redux/contactsOps";
 import { selectNameFilter } from "./redux/filtersSlice"; 
-
+import { fetchContacts } from "./redux/contactsOps";
+import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
+
+useEffect(() => {
+    dispatch(fetchContacts()); 
+  }, [dispatch]);
+
   const { loading } = useSelector((state) => state.contacts.contacts)
   const contacts = useSelector((state) => state.contacts.contacts.items || []);
   const filter = useSelector(selectNameFilter); 

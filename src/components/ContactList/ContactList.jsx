@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import Contact from "../Contact/Contact";
 import style from "./contactlist.module.css";
-import { fetchContacts, deleteContact } from "../../redux/contactsOps";
+import {  deleteContact } from "../../redux/contactsOps";
 import { selectFilteredContacts } from "../../redux/contactsSlice"; 
 
 export default function ContactList() {
@@ -10,11 +10,7 @@ export default function ContactList() {
   const filteredContacts = useSelector(selectFilteredContacts); 
   const loading = useSelector((state) => state.contacts.contacts.loading);
 
-  useEffect(() => {
-    if (filteredContacts.length === 0) {
-      dispatch(fetchContacts());
-    }
-  }, [dispatch, filteredContacts.length]);
+ 
 
   if (loading) {
     return <p>Loading...</p>;
